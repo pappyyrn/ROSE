@@ -20,6 +20,7 @@
       font-family: 'Segoe UI', system-ui, sans-serif;
       color: #333;
       position: relative;
+      overflow-x: hidden; /* prevents horizontal scroll */
     }
 
     .hearts {
@@ -42,11 +43,11 @@
 
     .card {
       background: rgba(255, 255, 255, 0.96);
-      padding: 40px 25px;
+      padding: 40px 20px; /* tighter sides for mobile */
       border-radius: 28px;
       text-align: center;
-      width: min(420px, 88vw);
-      max-width: 88vw;
+      width: min(420px, 90vw);
+      max-width: 90vw;
       box-shadow: 0 25px 60px rgba(255, 105, 180, 0.35);
       position: relative;
       z-index: 10;
@@ -54,7 +55,7 @@
     }
 
     .emoji {
-      font-size: 80px;
+      font-size: clamp(60px, 20vw, 90px);
       margin-bottom: 20px;
       animation: pulse 2.2s infinite;
     }
@@ -66,18 +67,20 @@
     h2 {
       margin: 0 0 20px;
       color: #e91e63;
-      font-size: 2.4em;
+      font-size: clamp(2em, 8vw, 2.6em);
     }
 
     .typewriter {
-      overflow: hidden;
-      white-space: nowrap;
-      margin: 0 auto 40px;
-      font-size: 1.45em;
+      overflow: visible; /* key fix: no more cutoff */
+      white-space: normal; /* allows wrap if needed */
+      word-wrap: break-word;
+      margin: 0 auto 30px;
+      font-size: clamp(1.2em, 4.5vw, 1.55em);
       color: #444;
       border-right: 4px solid #e91e63;
       width: 0;
-      animation: typing 6s steps(70, end) forwards, blink-caret 0.9s step-end infinite;
+      max-width: 100%; /* prevents overflow */
+      animation: typing 8s steps(80, end) forwards, blink-caret 0.9s step-end infinite; /* longer duration for full text */
     }
 
     @keyframes typing {
@@ -94,20 +97,20 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 30px;
-      position: relative;
-      min-height: 80px;
+      gap: 24px;
+      margin-top: 20px;
     }
 
     button {
       padding: 16px 50px;
       border: none;
       border-radius: 50px;
-      font-size: 1.4em;
+      font-size: clamp(1.2em, 5vw, 1.5em);
       font-weight: bold;
       cursor: pointer;
       transition: all 0.3s ease;
       min-width: 160px;
+      max-width: 85vw;
     }
 
     #yes {
@@ -145,7 +148,7 @@
     }
 
     #success h1 {
-      font-size: 5.5em;
+      font-size: clamp(3em, 12vw, 5.5em);
       margin: 0 0 25px;
       text-shadow: 0 8px 30px rgba(0,0,0,0.5);
       animation: bounce 1.8s infinite;
@@ -156,7 +159,7 @@
     }
 
     .ring {
-      font-size: 5.5rem;
+      font-size: clamp(3rem, 12vw, 5.5rem);
       margin: 15px 0 25px;
       animation: spin 7s linear infinite;
     }
@@ -167,7 +170,7 @@
 
     video {
       max-width: 90%;
-      max-height: 50vh;
+      max-height: 45vh;
       border-radius: 20px;
       margin: 25px 0;
       box-shadow: 0 15px 50px rgba(0,0,0,0.45);
@@ -175,45 +178,28 @@
     }
 
     #success p {
-      font-size: 2.3em;
+      font-size: clamp(1.4em, 5vw, 2.3em);
       margin: 15px 0;
-      max-width: 800px;
+      max-width: 90%;
       line-height: 1.4;
     }
 
-    /* Mobile adjustments */
+    /* Extra mobile tweaks */
     @media (max-width: 500px) {
       .card {
-        padding: 35px 20px;
-        width: 90vw;
-      }
-      .emoji {
-        font-size: 70px;
-      }
-      h2 {
-        font-size: 2.2em;
+        padding: 30px 18px;
+        width: 92vw;
       }
       .typewriter {
-        font-size: 1.3em;
-        margin-bottom: 35px;
+        font-size: 1.25em;
+        margin-bottom: 25px;
       }
       button {
-        padding: 14px 45px;
-        font-size: 1.35em;
-        min-width: 140px;
+        padding: 14px 40px;
+        font-size: 1.3em;
       }
       .buttons {
-        gap: 25px;
-      }
-      #success h1 {
-        font-size: 4em;
-      }
-      .ring {
-        font-size: 4rem;
-      }
-      #success p {
-        font-size: 1.8em;
-        max-width: 90%;
+        gap: 20px;
       }
     }
   </style>
@@ -239,7 +225,6 @@
     <div class="ring">💎💍💎</div>
     <p>My beautiful Rose, thank you for saying yes!<br>I promise to love, cherish and annoy you forever 🥰</p>
 
-    <!-- Rose's video plays automatically here -->
     <video autoplay muted loop playsinline>
       <source src="video.mp4" type="video/mp4">
       Your browser does not support the video tag.
@@ -283,10 +268,10 @@
       noBtn.style.transition = "all 0.65s cubic-bezier(0.23,1,0.32,1)";
 
       noSize = Math.max(noSize - 0.14, 0.38);
-      noBtn.style.transform = `scale(${noSize})`;
+      noBtn.style.transform = scale(${noSize});
 
       yesScale = Math.min(yesScale + 0.15, 2.3);
-      yesBtn.style.transform = `scale(${yesScale})`;
+      yesBtn.style.transform = scale(${yesScale});
     });
 
     // Confetti
@@ -335,12 +320,6 @@
       document.querySelector(".card").style.display = "none";
       document.getElementById("success").style.display = "flex";
       shootConfetti();
-
-      // Optional: background music (upload file + uncomment if you want)
-      // const audio = new Audio("our-song.mp3");
-      // audio.volume = 0.2;
-      // audio.loop = true;
-      // audio.play().catch(() => {});
     });
 
     window.addEventListener("resize", () => {
