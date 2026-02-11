@@ -20,7 +20,7 @@
       font-family: 'Segoe UI', system-ui, sans-serif;
       color: #333;
       position: relative;
-      overflow-x: hidden; /* prevents horizontal scroll */
+      overflow-x: hidden;
     }
 
     .hearts {
@@ -43,7 +43,7 @@
 
     .card {
       background: rgba(255, 255, 255, 0.96);
-      padding: 40px 20px; /* tighter sides for mobile */
+      padding: clamp(30px, 8vw, 40px) clamp(18px, 5vw, 25px);
       border-radius: 28px;
       text-align: center;
       width: min(420px, 90vw);
@@ -67,20 +67,20 @@
     h2 {
       margin: 0 0 20px;
       color: #e91e63;
-      font-size: clamp(2em, 8vw, 2.6em);
+      font-size: clamp(2.2em, 8vw, 2.8em);
     }
 
     .typewriter {
-      overflow: visible; /* key fix: no more cutoff */
-      white-space: normal; /* allows wrap if needed */
+      overflow: visible;
+      white-space: normal;
       word-wrap: break-word;
-      margin: 0 auto 30px;
-      font-size: clamp(1.2em, 4.5vw, 1.55em);
+      margin: 0 auto 40px;
+      font-size: clamp(1.3em, 5vw, 1.6em);
       color: #444;
       border-right: 4px solid #e91e63;
       width: 0;
-      max-width: 100%; /* prevents overflow */
-      animation: typing 8s steps(80, end) forwards, blink-caret 0.9s step-end infinite; /* longer duration for full text */
+      max-width: 100%;
+      animation: typing 5s steps(35, end) forwards, blink-caret 0.9s step-end infinite;
     }
 
     @keyframes typing {
@@ -102,7 +102,7 @@
     }
 
     button {
-      padding: 16px 50px;
+      padding: clamp(14px, 4vw, 18px) clamp(40px, 10vw, 60px);
       border: none;
       border-radius: 50px;
       font-size: clamp(1.2em, 5vw, 1.5em);
@@ -184,19 +184,18 @@
       line-height: 1.4;
     }
 
-    /* Extra mobile tweaks */
     @media (max-width: 500px) {
       .card {
         padding: 30px 18px;
         width: 92vw;
       }
       .typewriter {
-        font-size: 1.25em;
-        margin-bottom: 25px;
+        font-size: 1.3em;
+        margin-bottom: 30px;
       }
       button {
         padding: 14px 40px;
-        font-size: 1.3em;
+        font-size: 1.35em;
       }
       .buttons {
         gap: 20px;
@@ -211,8 +210,7 @@
   <div class="card">
     <div class="emoji">💍✨</div>
     <h2>Rose…</h2>
-    <div class="typewriter">Will you make me the happiest person 💕</div>
-    <div class="typewriter">...alive and marry me? 💕</div>
+    <div class="typewriter">Will you marry me? 💕</div>
 
     <div class="buttons">
       <button id="no">No 😿</button>
@@ -268,10 +266,10 @@
       noBtn.style.transition = "all 0.65s cubic-bezier(0.23,1,0.32,1)";
 
       noSize = Math.max(noSize - 0.14, 0.38);
-      noBtn.style.transform = scale(${noSize});
+      noBtn.style.transform = `scale(${noSize})`;
 
       yesScale = Math.min(yesScale + 0.15, 2.3);
-      yesBtn.style.transform = scale(${yesScale});
+      yesBtn.style.transform = `scale(${yesScale})`;
     });
 
     // Confetti
