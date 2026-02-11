@@ -6,21 +6,17 @@
   <title>Will You Marry Me, Rose? 💍</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      min-height: 100dvh;
+      height: 100vh;
       background: linear-gradient(135deg, #ffe6f2, #fff0f5, #f8e1e9);
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: 'Segoe UI', system-ui, sans-serif;
       color: #333;
+      overflow: hidden;
       position: relative;
-      overflow-x: hidden;
     }
 
     .hearts {
@@ -37,17 +33,17 @@
       user-select: none;
     }
     @keyframes float {
-      0%   { transform: translateY(100dvh) rotate(0deg); opacity: 0.6; }
-      100% { transform: translateY(-15dvh) rotate(360deg); opacity: 0; }
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0.6; }
+      100% { transform: translateY(-15vh) rotate(360deg); opacity: 0; }
     }
 
     .card {
       background: rgba(255, 255, 255, 0.96);
-      padding: clamp(30px, 8vw, 40px) clamp(18px, 5vw, 25px);
+      padding: 50px 35px;
       border-radius: 28px;
       text-align: center;
-      width: min(420px, 90vw);
-      max-width: 90vw;
+      width: 400px;
+      max-width: 92%;
       box-shadow: 0 25px 60px rgba(255, 105, 180, 0.35);
       position: relative;
       z-index: 10;
@@ -55,7 +51,7 @@
     }
 
     .emoji {
-      font-size: clamp(60px, 20vw, 90px);
+      font-size: 90px;
       margin-bottom: 20px;
       animation: pulse 2.2s infinite;
     }
@@ -67,50 +63,45 @@
     h2 {
       margin: 0 0 20px;
       color: #e91e63;
-      font-size: clamp(2.2em, 8vw, 2.8em);
+      font-size: 2.4em;
     }
 
     .typewriter {
-      overflow: visible;
-      white-space: normal;
-      word-wrap: break-word;
-      margin: 0 auto 40px;
-      font-size: clamp(1.3em, 5vw, 1.6em);
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 0 auto 45px;
+      font-size: 1.45em;
       color: #444;
-      border-right: 4px solid #e91e63;
+      border-right: 3px solid #e91e63;
       width: 0;
-      max-width: 100%;
-      animation: typing 5s steps(35, end) forwards, blink-caret 0.9s step-end infinite;
+      animation: typing 5.2s steps(58, end) forwards, blink 0.8s step-end infinite;
     }
-
     @keyframes typing {
       from { width: 0; }
       to   { width: 100%; }
     }
-
-    @keyframes blink-caret {
+    @keyframes blink {
       from, to { border-color: transparent; }
       50%      { border-color: #e91e63; }
     }
 
     .buttons {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 24px;
-      margin-top: 20px;
+      justify-content: center;
+      gap: 90px;
+      flex-wrap: wrap;
+      position: relative;
+      min-height: 80px;
     }
 
     button {
-      padding: clamp(14px, 4vw, 18px) clamp(40px, 10vw, 60px);
+      padding: 18px 60px;
       border: none;
       border-radius: 50px;
-      font-size: clamp(1.2em, 5vw, 1.5em);
+      font-size: 1.5em;
       font-weight: bold;
       cursor: pointer;
       transition: all 0.3s ease;
-      min-width: 160px;
-      max-width: 85vw;
     }
 
     #yes {
@@ -148,7 +139,7 @@
     }
 
     #success h1 {
-      font-size: clamp(3em, 12vw, 5.5em);
+      font-size: 5.5em;
       margin: 0 0 25px;
       text-shadow: 0 8px 30px rgba(0,0,0,0.5);
       animation: bounce 1.8s infinite;
@@ -159,7 +150,7 @@
     }
 
     .ring {
-      font-size: clamp(3rem, 12vw, 5.5rem);
+      font-size: 5.5rem;
       margin: 15px 0 25px;
       animation: spin 7s linear infinite;
     }
@@ -170,7 +161,7 @@
 
     video {
       max-width: 90%;
-      max-height: 45vh;
+      max-height: 50vh;
       border-radius: 20px;
       margin: 25px 0;
       box-shadow: 0 15px 50px rgba(0,0,0,0.45);
@@ -178,28 +169,10 @@
     }
 
     #success p {
-      font-size: clamp(1.4em, 5vw, 2.3em);
+      font-size: 2.3em;
       margin: 15px 0;
-      max-width: 90%;
+      max-width: 800px;
       line-height: 1.4;
-    }
-
-    @media (max-width: 500px) {
-      .card {
-        padding: 30px 18px;
-        width: 92vw;
-      }
-      .typewriter {
-        font-size: 1.3em;
-        margin-bottom: 30px;
-      }
-      button {
-        padding: 14px 40px;
-        font-size: 1.35em;
-      }
-      .buttons {
-        gap: 20px;
-      }
     }
   </style>
 </head>
@@ -223,6 +196,7 @@
     <div class="ring">💎💍💎</div>
     <p>My beautiful Rose, thank you for saying yes!<br>I promise to love, cherish and annoy you forever 🥰</p>
 
+    <!-- Her video plays here automatically when Yes is clicked -->
     <video autoplay muted loop playsinline>
       <source src="video.mp4" type="video/mp4">
       Your browser does not support the video tag.
@@ -318,6 +292,12 @@
       document.querySelector(".card").style.display = "none";
       document.getElementById("success").style.display = "flex";
       shootConfetti();
+
+      // Optional romantic background music (upload file + uncomment)
+      // const audio = new Audio("our-song.mp3");
+      // audio.volume = 0.2;
+      // audio.loop = true;
+      // audio.play().catch(() => {});
     });
 
     window.addEventListener("resize", () => {
