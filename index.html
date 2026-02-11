@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Will You Marry Me, Rose? 💍</title>
 
   <style>
@@ -21,14 +21,12 @@
       font-family: 'Segoe UI', system-ui, sans-serif;
       color: #333;
       position: relative;
-      overflow-x: hidden;
     }
 
     .hearts {
       position: absolute;
       inset: 0;
       pointer-events: none;
-      overflow: hidden;
     }
 
     .heart {
@@ -36,7 +34,6 @@
       font-size: 1.8rem;
       color: rgba(255, 105, 180, 0.7);
       animation: float 12s linear infinite;
-      user-select: none;
     }
 
     @keyframes float {
@@ -46,14 +43,13 @@
 
     .card {
       background: rgba(255, 255, 255, 0.96);
-      padding: clamp(24px, 6vw, 40px) clamp(16px, 5vw, 25px);
+      padding: clamp(24px, 6vw, 40px) clamp(16px, 5vw, 24px);
       border-radius: 28px;
       text-align: center;
-      width: clamp(300px, 88vw, 420px);
+      width: clamp(300px, 90vw, 420px);
       max-width: 92vw;
+      margin: 0 auto;
       box-shadow: 0 20px 50px rgba(255, 105, 180, 0.3);
-      position: relative;
-      z-index: 10;
       backdrop-filter: blur(6px);
     }
 
@@ -65,7 +61,7 @@
 
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
-      50%      { transform: scale(1.12); }
+      50%      { transform: scale(1.15); }
     }
 
     h2 {
@@ -75,11 +71,11 @@
     }
 
     .typewriter {
-      margin: 0 auto 32px;
       font-size: clamp(1.3em, 5vw, 1.6em);
       color: #444;
+      margin-bottom: 32px;
       border-right: 4px solid #e91e63;
-      white-space: normal;
+      white-space: pre-wrap;
       overflow: visible;
       width: 0;
       max-width: 100%;
@@ -92,8 +88,7 @@
     }
 
     @keyframes blink-caret {
-      from, to { border-color: transparent; }
-      50%      { border-color: #e91e63; }
+      50% { border-color: transparent; }
     }
 
     .buttons {
@@ -110,9 +105,9 @@
       font-size: clamp(1.2em, 5vw, 1.5em);
       font-weight: bold;
       cursor: pointer;
-      transition: all 0.3s ease;
       min-width: 140px;
       max-width: 80vw;
+      transition: all 0.3s ease;
     }
 
     #yes {
@@ -120,14 +115,19 @@
       color: white;
       box-shadow: 0 8px 25px rgba(255, 64, 129, 0.4);
     }
-    #yes:hover { transform: scale(1.12); background: #f50057; }
+    #yes:hover {
+      transform: scale(1.12);
+      background: #f50057;
+    }
 
     #no {
       background: #e0e0e0;
       color: #555;
       box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     }
-    #no:hover { background: #d0d0d0; }
+    #no:hover {
+      background: #d0d0d0;
+    }
 
     #success {
       position: fixed;
@@ -163,7 +163,7 @@
 
     @keyframes spin {
       from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
+      to { transform: rotate(360deg); }
     }
 
     video {
@@ -184,8 +184,8 @@
 
     @media (max-width: 480px) {
       .card { padding: 28px 16px; width: 94vw; }
-      .typewriter { font-size: 1.28em; margin-bottom: 24px; }
-      button { padding: 14px 36px; font-size: 1.32em; min-width: 130px; }
+      .typewriter { font-size: 1.35em; margin-bottom: 24px; }
+      button { padding: 14px 40px; font-size: 1.35em; min-width: 130px; }
       .buttons { gap: 18px; }
     }
   </style>
@@ -221,7 +221,7 @@
   <canvas id="confetti"></canvas>
 
   <script>
-    // Floating hearts (unchanged)
+    // Floating hearts
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -234,7 +234,7 @@
     }
     setInterval(createHeart, 650);
 
-    // Button interactions (unchanged)
+    // Buttons logic
     const noBtn = document.getElementById("no");
     const yesBtn = document.getElementById("yes");
     let noSize = 1;
@@ -243,19 +243,23 @@
     noBtn.addEventListener("mouseover", () => {
       const maxX = window.innerWidth - noBtn.offsetWidth - 140;
       const maxY = window.innerHeight - noBtn.offsetHeight - 140;
+
       const newX = Math.random() * maxX;
       const newY = Math.random() * maxY;
+
       noBtn.style.position = "fixed";
       noBtn.style.left = newX + "px";
       noBtn.style.top  = newY + "px";
       noBtn.style.transition = "all 0.65s cubic-bezier(0.23,1,0.32,1)";
+
       noSize = Math.max(noSize - 0.14, 0.38);
       noBtn.style.transform = `scale(${noSize})`;
+
       yesScale = Math.min(yesScale + 0.15, 2.3);
       yesBtn.style.transform = `scale(${yesScale})`;
     });
 
-    // Confetti (unchanged)
+    // Confetti
     function shootConfetti() {
       const canvas = document.getElementById("confetti");
       canvas.width = window.innerWidth;
@@ -282,7 +286,9 @@
           p.tiltAngle += 0.08;
           p.y += (Math.cos(p.d) + 3 + p.r / 1.8);
           p.tilt = Math.sin(p.tiltAngle) * 14;
+
           if (p.y > canvas.height + 20) pieces.splice(i, 1);
+
           ctx.beginPath();
           ctx.lineWidth = p.r;
           ctx.strokeStyle = p.color;
@@ -307,5 +313,6 @@
       canvas.height = window.innerHeight;
     });
   </script>
+
 </body>
 </html>
