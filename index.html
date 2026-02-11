@@ -1,318 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Will You Marry Me, Rose? 💍</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Will You Marry Me, Rose? 💍</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffe6f2, #fff0f5, #f8e1e9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #333;
+  overflow: hidden;
+  position: relative;
+}
 
-    body {
-      min-height: 100dvh;
-      background: linear-gradient(135deg, #ffe6f2, #fff0f5, #f8e1e9);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      color: #333;
-      position: relative;
-    }
+/* Floating hearts */
+.hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+.heart {
+  position: absolute;
+  font-size: 1.8rem;
+  color: rgba(255, 105, 180, 0.7);
+  animation: float 12s linear infinite;
+  user-select: none;
+}
+@keyframes float {
+  0%   { transform: translateY(100vh) rotate(0deg); opacity: 0.6; }
+  100% { transform: translateY(-15vh) rotate(360deg); opacity: 0; }
+}
 
-    .hearts {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
+/* Card */
+.card {
+  background: rgba(255, 255, 255, 0.96);
+  padding: 50px 35px;
+  border-radius: 28px;
+  text-align: center;
+  width: 400px;
+  max-width: 92%;
+  box-shadow: 0 25px 60px rgba(255, 105, 180, 0.35);
+  position: relative;
+  z-index: 10;
+  backdrop-filter: blur(6px);
+}
 
-    .heart {
-      position: absolute;
-      font-size: 1.8rem;
-      color: rgba(255, 105, 180, 0.7);
-      animation: float 12s linear infinite;
-    }
+.emoji {
+  font-size: 90px;
+  margin-bottom: 20px;
+  animation: pulse 2.2s infinite;
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50%     { transform: scale(1.15); }
+}
 
-    @keyframes float {
-      0%   { transform: translateY(100dvh) rotate(0deg); opacity: 0.6; }
-      100% { transform: translateY(-15dvh) rotate(360deg); opacity: 0; }
-    }
+h2 {
+  margin: 0 0 20px;
+  color: #e91e63;
+  font-size: 2.4em;
+}
 
-    .card {
-      background: rgba(255, 255, 255, 0.96);
-      padding: clamp(24px, 6vw, 40px) clamp(16px, 5vw, 24px);
-      border-radius: 28px;
-      text-align: center;
-      width: clamp(300px, 90vw, 420px);
-      max-width: 92vw;
-      margin: 0 auto;
-      box-shadow: 0 20px 50px rgba(255, 105, 180, 0.3);
-      backdrop-filter: blur(6px);
-    }
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0 auto 45px;
+  font-size: 1.45em;
+  color: #444;
+  border-right: 3px solid #e91e63;
+  width: 0;
+  animation: typing 5.2s steps(58, end) forwards, blink 0.8s step-end infinite;
+}
+@keyframes typing {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+@keyframes blink {
+  from, to { border-color: transparent; }
+  50%      { border-color: #e91e63; }
+}
 
-    .emoji {
-      font-size: clamp(60px, 18vw, 90px);
-      margin-bottom: 16px;
-      animation: pulse 2.2s infinite;
-    }
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  position: relative;
+  min-height: 80px;
+}
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50%      { transform: scale(1.15); }
-    }
+button {
+  padding: 18px 60px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.3em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-    h2 {
-      color: #e91e63;
-      font-size: clamp(2.2em, 9vw, 3em);
-      margin-bottom: 16px;
-    }
+#yes {
+  background: #ff4081;
+  color: white;
+  box-shadow: 0 8px 25px rgba(255, 64, 129, 0.4);
+}
+#yes:hover {
+  transform: scale(1.14);
+  background: #f50057;
+}
 
-    .typewriter {
-      font-size: clamp(1.3em, 5vw, 1.6em);
-      color: #444;
-      margin-bottom: 32px;
-      border-right: 4px solid #e91e63;
-      white-space: pre-wrap;
-      overflow: visible;
-      width: 0;
-      max-width: 100%;
-      animation: typing 4s steps(30, end) forwards, blink-caret 0.9s step-end infinite;
-    }
+#no {
+  background: #e0e0e0;
+  color: #555;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
 
-    @keyframes typing {
-      from { width: 0; }
-      to   { width: 100%; }
-    }
+/* SUCCESS SCREEN FIXED */
+#success {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff80ab, #ff4081);
+  color: white;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 100;
+}
 
-    @keyframes blink-caret {
-      50% { border-color: transparent; }
-    }
+#success h1 {
+  font-size: 4em;
+  margin: 0 0 25px;
+  animation: bounce 1.8s infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-15px); }
+}
 
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
+.ring {
+  font-size: 4.5rem;
+  margin: 15px 0 25px;
+  animation: spin 7s linear infinite;
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
 
-    button {
-      padding: clamp(14px, 4vw, 18px) clamp(36px, 10vw, 60px);
-      border: none;
-      border-radius: 50px;
-      font-size: clamp(1.2em, 5vw, 1.5em);
-      font-weight: bold;
-      cursor: pointer;
-      min-width: 140px;
-      max-width: 80vw;
-      transition: all 0.3s ease;
-    }
+video {
+  max-width: 90%;
+  max-height: 50vh;
+  border-radius: 20px;
+  margin: 25px 0;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.45);
+  border: 6px solid rgba(255,255,255,0.4);
+}
 
-    #yes {
-      background: #ff4081;
-      color: white;
-      box-shadow: 0 8px 25px rgba(255, 64, 129, 0.4);
-    }
-    #yes:hover {
-      transform: scale(1.12);
-      background: #f50057;
-    }
+#success p {
+  font-size: 1.5em;
+  max-width: 700px;
+}
 
-    #no {
-      background: #e0e0e0;
-      color: #555;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
-    #no:hover {
-      background: #d0d0d0;
-    }
-
-    #success {
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(135deg, #ff80ab, #ff4081);
-      color: white;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-      text-align: center;
-      padding: 20px;
-    }
-
-    #success h1 {
-      font-size: clamp(3.5em, 14vw, 5.5em);
-      margin-bottom: 20px;
-      text-shadow: 0 8px 30px rgba(0,0,0,0.5);
-      animation: bounce 1.8s infinite;
-    }
-
-    @keyframes bounce {
-      0%,100% { transform: translateY(0); }
-      50%     { transform: translateY(-20px); }
-    }
-
-    .ring {
-      font-size: clamp(3rem, 12vw, 5.5rem);
-      margin: 15px 0 25px;
-      animation: spin 7s linear infinite;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    video {
-      max-width: 90%;
-      max-height: 45vh;
-      border-radius: 20px;
-      margin: 25px 0;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.45);
-      border: 6px solid rgba(255,255,255,0.4);
-    }
-
-    #success p {
-      font-size: clamp(1.4em, 5vw, 2.3em);
-      margin: 15px 0;
-      max-width: 90%;
-      line-height: 1.4;
-    }
-
-    @media (max-width: 480px) {
-      .card { padding: 28px 16px; width: 94vw; }
-      .typewriter { font-size: 1.35em; margin-bottom: 24px; }
-      button { padding: 14px 40px; font-size: 1.35em; min-width: 130px; }
-      .buttons { gap: 18px; }
-    }
-  </style>
+/* CONFETTI FIX */
+#confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+}
+</style>
 </head>
+
 <body>
 
-  <div class="hearts" id="hearts"></div>
+<div class="hearts" id="hearts"></div>
 
-  <div class="card">
-    <div class="emoji">💍✨</div>
-    <h2>Rose…</h2>
-    <div class="typewriter">Will you marry me? 💕</div>
-
-    <div class="buttons">
-      <button id="no">No 😿</button>
-      <button id="yes">Yes!! 💖</button>
-    </div>
+<div class="card">
+  <div class="emoji">💍✨</div>
+  <h2>Rose…</h2>
+  <div class="typewriter">
+    Will you marry me? 💕
   </div>
 
-  <div id="success">
-    <h1>YESSSS!!! 💍❤️</h1>
-    <div class="ring">💎💍💎</div>
-    <p>My beautiful Rose, thank you for saying yes!<br>I promise to love, cherish and annoy you forever 🥰</p>
-
-    <video autoplay muted loop playsinline>
-      <source src="video.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-
-    <p>Can't wait to spend forever with you 🌹✨💕</p>
+  <div class="buttons">
+    <button id="no">No 😿</button>
+    <button id="yes">Yes!! 💖</button>
   </div>
+</div>
 
-  <canvas id="confetti"></canvas>
+<div id="success">
+  <h1>YESSSS!!! 💍❤️</h1>
+  <div class="ring">💎💍💎</div>
+  <p>My beautiful Rose, thank you for saying yes!<br>
+  I promise to love, cherish and annoy you forever 🥰</p>
 
-  <script>
-    // Floating hearts
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = Math.random() > 0.5 ? "❤️" : ["💗","💖","🌹"][Math.floor(Math.random()*3)];
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 8 + 9) + "s";
-      heart.style.opacity = Math.random() * 0.5 + 0.45;
-      document.getElementById("hearts").appendChild(heart);
-      setTimeout(() => heart.remove(), 16000);
-    }
-    setInterval(createHeart, 650);
+  <video autoplay muted loop playsinline>
+    <source src="video.mp4" type="video/mp4">
+  </video>
 
-    // Buttons logic
-    const noBtn = document.getElementById("no");
-    const yesBtn = document.getElementById("yes");
-    let noSize = 1;
-    let yesScale = 1;
+  <p>Can't wait to spend forever with you 🌹✨💕</p>
+</div>
 
-    noBtn.addEventListener("mouseover", () => {
-      const maxX = window.innerWidth - noBtn.offsetWidth - 140;
-      const maxY = window.innerHeight - noBtn.offsetHeight - 140;
+<canvas id="confetti"></canvas>
 
-      const newX = Math.random() * maxX;
-      const newY = Math.random() * maxY;
+<script>
+// Floating hearts
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = Math.random() > 0.5 ? "❤️" : ["💗","💖","🌹"][Math.floor(Math.random()*3)];
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 8 + 9) + "s";
+  document.getElementById("hearts").appendChild(heart);
+  setTimeout(() => heart.remove(), 16000);
+}
+setInterval(createHeart, 650);
 
-      noBtn.style.position = "fixed";
-      noBtn.style.left = newX + "px";
-      noBtn.style.top  = newY + "px";
-      noBtn.style.transition = "all 0.65s cubic-bezier(0.23,1,0.32,1)";
+// Button logic
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+let noSize = 1;
+let yesScale = 1;
 
-      noSize = Math.max(noSize - 0.14, 0.38);
-      noBtn.style.transform = `scale(${noSize})`;
+noBtn.addEventListener("mouseover", () => {
+  const maxX = window.innerWidth - noBtn.offsetWidth - 140;
+  const maxY = window.innerHeight - noBtn.offsetHeight - 140;
+  const newX = Math.random() * maxX;
+  const newY = Math.random() * maxY;
 
-      yesScale = Math.min(yesScale + 0.15, 2.3);
-      yesBtn.style.transform = `scale(${yesScale})`;
+  noBtn.style.position = "fixed";
+  noBtn.style.left = newX + "px";
+  noBtn.style.top  = newY + "px";
+
+  noSize = Math.max(noSize - 0.14, 0.38);
+  noBtn.style.transform = `scale(${noSize})`;
+
+  yesScale = Math.min(yesScale + 0.15, 2.3);
+  yesBtn.style.transform = `scale(${yesScale})`;
+});
+
+// Confetti
+function shootConfetti() {
+  const canvas = document.getElementById("confetti");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let pieces = [];
+  const colors = ["#ff4081","#ff80ab","#ffffff","#ffe6f2","#ff1493","#ff6f91"];
+
+  for (let i = 0; i < 200; i++) {
+    pieces.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      r: Math.random() * 7 + 4,
+      d: Math.random() * 200 + 70,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      tilt: Math.random() * 12 - 6,
+      tiltAngle: Math.random() * Math.PI * 2
     });
+  }
 
-    // Confetti
-    function shootConfetti() {
-      const canvas = document.getElementById("confetti");
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      const ctx = canvas.getContext("2d");
-      let pieces = [];
-      const colors = ["#ff4081","#ff80ab","#ffffff","#ffe6f2","#ff1493","#ff6f91"];
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pieces.forEach((p, i) => {
+      p.tiltAngle += 0.08;
+      p.y += (Math.cos(p.d) + 3 + p.r / 1.8);
+      p.tilt = Math.sin(p.tiltAngle) * 14;
 
-      for (let i = 0; i < 200; i++) {
-        pieces.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height - canvas.height,
-          r: Math.random() * 7 + 4,
-          d: Math.random() * 200 + 70,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          tilt: Math.random() * 12 - 6,
-          tiltAngle: Math.random() * Math.PI * 2
-        });
-      }
+      if (p.y > canvas.height + 20) pieces.splice(i, 1);
 
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        pieces.forEach((p, i) => {
-          p.tiltAngle += 0.08;
-          p.y += (Math.cos(p.d) + 3 + p.r / 1.8);
-          p.tilt = Math.sin(p.tiltAngle) * 14;
-
-          if (p.y > canvas.height + 20) pieces.splice(i, 1);
-
-          ctx.beginPath();
-          ctx.lineWidth = p.r;
-          ctx.strokeStyle = p.color;
-          ctx.moveTo(p.x + p.tilt + p.r / 3, p.y);
-          ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
-          ctx.stroke();
-        });
-        if (pieces.length > 0) requestAnimationFrame(animate);
-      }
-      animate();
-    }
-
-    yesBtn.addEventListener("click", () => {
-      document.querySelector(".card").style.display = "none";
-      document.getElementById("success").style.display = "flex";
-      shootConfetti();
+      ctx.beginPath();
+      ctx.lineWidth = p.r;
+      ctx.strokeStyle = p.color;
+      ctx.moveTo(p.x + p.tilt + p.r / 3, p.y);
+      ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+      ctx.stroke();
     });
+    if (pieces.length > 0) requestAnimationFrame(animate);
+  }
+  animate();
+}
 
-    window.addEventListener("resize", () => {
-      const canvas = document.getElementById("confetti");
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-  </script>
+yesBtn.addEventListener("click", () => {
+  document.querySelector(".card").style.display = "none";
+  document.getElementById("success").style.display = "flex";
+  shootConfetti();
+});
+</script>
 
 </body>
 </html>
